@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "VibeHook"
+version = "1.0.0"
+id = "artifacts/vibehook"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23113
+
+[services.development]
+run = "pnpm --filter @workspace/vibehook run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/vibehook", "run", "build" ]
+publicDir = "artifacts/vibehook/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23113"
+BASE_PATH = "/"
