@@ -14,11 +14,33 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const VIBES = [
-  "Funny", "Shocking", "Educational", "Storytime", "Controversial", "Inspirational"
+  "Funny",
+  "Shocking",
+  "Educational",
+  "Storytime",
+  "Controversial",
+  "Inspirational",
+  "Relatable",
+  "Curiosity-Driven",
+  "Fear of Missing Out (FOMO)",
+  "Before & After",
+  "POV",
+  "Challenge",
+  "Motivational",
+  "Sarcastic",
+  "Tutorial / How-To",
 ];
 
 const PLATFORMS = [
-  "TikTok", "Instagram Reels", "YouTube Shorts"
+  "TikTok",
+  "Instagram Reels",
+  "YouTube Shorts",
+  "LinkedIn",
+  "Snapchat",
+  "Facebook Reels",
+  "Twitter / X",
+  "Pinterest",
+  "Threads",
 ];
 
 interface GeneratorFormProps {
