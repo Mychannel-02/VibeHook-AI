@@ -27,52 +27,62 @@ function Modal({ type, onClose }: { type: ModalType; onClose: () => void }) {
 
         {isAbout ? (
           <>
-            <h2 className="text-2xl font-bold text-white mb-4">About VibeHook</h2>
+            <h2 className="text-2xl font-bold text-white mb-4">
+              About VibeHook
+            </h2>
             <div className="space-y-3 text-white/70 text-sm leading-relaxed">
               <p>
-                VibeHook is an AI-powered viral hook generator built for TikTok creators,
-                dropshippers, and social media marketers who want to stop the scroll and
-                dominate their niche.
+                VibeHook is an AI-powered viral hook generator built for Content
+                creators, dropshippers, and social media marketers who want to
+                stop the scroll and dominate their niche.
               </p>
               <p>
-                Powered by Google Gemini, VibeHook crafts 6 high-converting hooks
-                in seconds — tailored to your topic, vibe, and platform. No more
-                staring at a blank screen wondering what to say first.
+                Powered by AI, VibeHook crafts high-converting hooks in seconds
+                — tailored to your topic, vibe, and platform. No more staring at
+                a blank screen wondering what to say first.
               </p>
               <p>
-                Whether you're selling a product, growing a personal brand, or just
-                trying to go viral — VibeHook gives you the words that make people stop
-                and watch.
+                Whether you're selling a product, growing a personal brand, or
+                just trying to go viral — VibeHook gives you the words that make
+                people stop and watch.
               </p>
               <p className="pt-2 text-white/40 text-xs">
-                Built for creators who refuse to blend in. &copy; {new Date().getFullYear()} VibeHook.
+                Built for creators who refuse to blend in. &copy;{" "}
+                {new Date().getFullYear()} VibeHook.
               </p>
             </div>
           </>
         ) : (
           <>
-            <h2 className="text-2xl font-bold text-white mb-4">Privacy Policy</h2>
+            <h2 className="text-2xl font-bold text-white mb-4">
+              Privacy Policy
+            </h2>
             <div className="space-y-4 text-white/70 text-sm leading-relaxed max-h-72 overflow-y-auto pr-2">
               <div>
-                <h3 className="text-white font-semibold mb-1">1. Information We Collect</h3>
+                <h3 className="text-white font-semibold mb-1">
+                  1. Information We Collect
+                </h3>
                 <p>
-                  VibeHook does not collect, store, or sell any personal data. The text
-                  you enter into the generator is sent directly to the Google Gemini API
-                  and is not retained by us.
+                  VibeHook does not collect, store, or sell any personal data.
+                  The text you enter into the generator is sent directly to the
+                  Google Gemini API and is not retained by us.
                 </p>
               </div>
               <div>
                 <h3 className="text-white font-semibold mb-1">2. API Keys</h3>
                 <p>
-                  Your Gemini API key is stored securely as an environment variable and
-                  is never exposed to other users or third parties.
+                  Your Gemini API key is stored securely as an environment
+                  variable and is never exposed to other users or third parties.
                 </p>
               </div>
               <div>
-                <h3 className="text-white font-semibold mb-1">3. Third-Party Services</h3>
+                <h3 className="text-white font-semibold mb-1">
+                  3. Third-Party Services
+                </h3>
                 <p>
-                  This app uses the Google Gemini API to generate content. Please review
-                  Google's privacy policy at <span className="text-primary">ai.google.dev</span> for
+                  This app uses the Google Gemini API to generate content.
+                  Please review Google's privacy policy at{" "}
+                  <span className="text-primary">ai.google.dev</span> for
                   details on how your prompts may be processed.
                 </p>
               </div>
@@ -83,10 +93,12 @@ function Modal({ type, onClose }: { type: ModalType; onClose: () => void }) {
                 </p>
               </div>
               <div>
-                <h3 className="text-white font-semibold mb-1">5. Changes to This Policy</h3>
+                <h3 className="text-white font-semibold mb-1">
+                  5. Changes to This Policy
+                </h3>
                 <p>
-                  We may update this policy from time to time. Continued use of the app
-                  constitutes acceptance of any changes.
+                  We may update this policy from time to time. Continued use of
+                  the app constitutes acceptance of any changes.
                 </p>
               </div>
               <p className="pt-2 text-white/40 text-xs">
@@ -109,8 +121,12 @@ export function Footer() {
       <footer className="border-t border-white/10 mt-24 bg-background/50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-display font-bold text-lg text-white">VibeHook</span>
-            <span className="text-muted-foreground text-sm">&copy; {new Date().getFullYear()}</span>
+            <span className="font-display font-bold text-lg text-white">
+              VibeHook
+            </span>
+            <span className="text-muted-foreground text-sm">
+              &copy; {new Date().getFullYear()}
+            </span>
           </div>
 
           <div className="flex items-center gap-6">
@@ -127,10 +143,6 @@ export function Footer() {
               Privacy Policy
             </button>
           </div>
-
-          <p className="text-muted-foreground text-sm text-center md:text-right">
-            Built for creators who refuse to blend in.
-          </p>
         </div>
       </footer>
     </>

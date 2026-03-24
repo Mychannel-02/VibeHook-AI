@@ -73,6 +73,11 @@ export function Navbar() {
     <nav className="fixed top-0 w-full z-50 glass-panel border-x-0 border-t-0 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="flex items-center gap-3">
+          <img
+            src="/logo.png"
+            alt="VibeHook Logo"
+            className="w-9 h-9 rounded-full object-cover shadow-lg shadow-primary/30 ring-2 ring-primary/40"
+          />
           <span className="font-display font-bold text-xl tracking-tight text-white">
             VibeHook
           </span>
