@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "export NODE_ENV=development && pnpm run build && pnpm run start",
-    "build": "node ./build.mjs",
+    "build": "vite build",
     "start": "node --enable-source-maps ./dist/index.mjs",
-    "typecheck": "echo skipping typecheck"
+    "typecheck": "echo skipping"
   },
   "dependencies": {
     "@workspace/api-zod": "workspace:*",
