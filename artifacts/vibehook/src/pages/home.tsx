@@ -5,32 +5,59 @@ import { Hero } from "@/components/home/Hero";
 import { GeneratorForm } from "@/components/home/GeneratorForm";
 import { ResultsGrid } from "@/components/home/ResultsGrid";
 import { HowItWorks } from "@/components/home/HowItWorks";
-import { useGenerateHooks, GenerateHooksParams, GenerateHooksResult } from "@/hooks/use-gemini";
+import {
+  useGenerateHooks,
+  useAnalyzeMedia,
+  GenerateHooksParams,
+  GenerateHooksResult,
+} from "@/hooks/use-gemini";
 
 export default function Home() {
   const [result, setResult] = useState<GenerateHooksResult | null>(null);
   const [lastParams, setLastParams] = useState<GenerateHooksParams | null>(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const generateMutation = useGenerateHooks();
+  const analyzeMutation = useAnalyzeMedia();
   const resultsRef = useRef<HTMLDivElement>(null);
 
+  const scrollToResults = () =>
+    setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
+
+  // ── Text-based generation ──
   const handleGenerate = (params: GenerateHooksParams) => {
     setLastParams(params);
     setResult(null);
-
+    setUploadProgress(0);
     generateMutation.mutate(params, {
-      onSuccess: (data) => {
-        setResult(data);
-        setTimeout(() => {
-          resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 100);
-      },
+      onSuccess: (data) => { setResult(data); scrollToResults(); },
     });
+  };
+
+  // ── File-based generation ──
+  const handleGenerateFromFile = (
+    file: File,
+    vibe: string,
+    platform: string,
+    context?: string
+  ) => {
+    setResult(null);
+    setUploadProgress(0);
+    setLastParams(null);
+    analyzeMutation.mutate(
+      { file, vibe, platform, context, onUploadProgress: setUploadProgress },
+      {
+        onSuccess: (data) => { setResult(data); scrollToResults(); },
+      }
+    );
   };
 
   const handleRegenerate = () => {
     if (lastParams) handleGenerate(lastParams);
   };
+
+  const isLoading = generateMutation.isPending || analyzeMutation.isPending;
+  const error = generateMutation.error?.message || analyzeMutation.error?.message || null;
 
   return (
     <div className="min-h-screen flex flex-col relative selection:bg-primary/30">
@@ -42,8 +69,10 @@ export default function Home() {
         <div className="w-full -mt-8 relative z-20">
           <GeneratorForm
             onGenerate={handleGenerate}
-            isLoading={generateMutation.isPending}
-            error={generateMutation.error?.message || null}
+            onGenerateFromFile={handleGenerateFromFile}
+            isLoading={isLoading}
+            uploadProgress={uploadProgress}
+            error={error}
           />
         </div>
 
@@ -53,12 +82,12 @@ export default function Home() {
               hooks={result.hooks}
               hashtags={result.hashtags}
               onRegenerate={handleRegenerate}
-              isRegenerating={generateMutation.isPending}
+              isRegenerating={isLoading}
             />
           )}
         </div>
 
-        {!result && !generateMutation.isPending && <HowItWorks />}
+        {!result && !isLoading && <HowItWorks />}
       </main>
 
       <Footer />
