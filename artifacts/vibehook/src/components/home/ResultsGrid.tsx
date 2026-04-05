@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Copy, Check, Sparkles, RefreshCcw, Hash } from "lucide-react";
+import { Copy, Check, Sparkles, RefreshCcw, Hash, Share2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface ResultsGridProps {
@@ -12,6 +12,7 @@ interface ResultsGridProps {
 
 export function ResultsGrid({ hooks, hashtags, onRegenerate, isRegenerating }: ResultsGridProps) {
   const [copiedHook, setCopiedHook] = useState<number | null>(null);
+  const [sharedHook, setSharedHook] = useState<number | null>(null);
   const [copiedHashtag, setCopiedHashtag] = useState<number | null>(null);
   const [copiedAll, setCopiedAll] = useState(false);
   const { toast } = useToast();
@@ -22,6 +23,22 @@ export function ResultsGrid({ hooks, hashtags, onRegenerate, isRegenerating }: R
       setCopiedHook(index);
       toast({ title: "Hook copied!", description: "Go paste it in your video draft.", duration: 2000 });
       setTimeout(() => setCopiedHook(null), 2000);
+    } catch {
+      toast({ title: "Failed to copy", variant: "destructive" });
+    }
+  };
+
+  const handleShareHook = async (text: string, index: number) => {
+    const shareText = `${text}\n\n🔥 Generate your own viral hooks free at vibehook.online`;
+    try {
+      await navigator.clipboard.writeText(shareText);
+      setSharedHook(index);
+      toast({
+        title: "Copied for sharing!",
+        description: "Hook + vibehook.online link copied. Paste anywhere to promote!",
+        duration: 3000,
+      });
+      setTimeout(() => setSharedHook(null), 2500);
     } catch {
       toast({ title: "Failed to copy", variant: "destructive" });
     }
@@ -93,12 +110,28 @@ export function ResultsGrid({ hooks, hashtags, onRegenerate, isRegenerating }: R
                   <span className="text-xs font-bold text-white/40 tracking-wider uppercase group-hover:text-primary/70 transition-colors">
                     Hook 0{idx + 1}
                   </span>
-                  <div className={`p-2 rounded-full transition-all duration-300 ${
-                    copiedHook === idx
-                      ? "bg-green-500/20 text-green-400"
-                      : "bg-white/5 text-white/50 group-hover:bg-primary/20 group-hover:text-primary-foreground"
-                  }`}>
-                    {copiedHook === idx ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                  <div className="flex items-center gap-2">
+                    {/* Share to Social */}
+                    <button
+                      type="button"
+                      onClick={(e) => { e.stopPropagation(); handleShareHook(hook, idx); }}
+                      title="Copy hook + vibehook.online link for sharing"
+                      className={`p-2 rounded-full transition-all duration-300 ${
+                        sharedHook === idx
+                          ? "bg-secondary/30 text-secondary"
+                          : "bg-white/5 text-white/40 hover:bg-secondary/20 hover:text-secondary"
+                      }`}
+                    >
+                      {sharedHook === idx ? <Check className="w-4 h-4" /> : <Share2 className="w-4 h-4" />}
+                    </button>
+                    {/* Copy hook */}
+                    <div className={`p-2 rounded-full transition-all duration-300 ${
+                      copiedHook === idx
+                        ? "bg-green-500/20 text-green-400"
+                        : "bg-white/5 text-white/50 group-hover:bg-primary/20 group-hover:text-primary-foreground"
+                    }`}>
+                      {copiedHook === idx ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    </div>
                   </div>
                 </div>
               </button>
