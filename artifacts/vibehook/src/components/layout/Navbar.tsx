@@ -76,6 +76,10 @@ export function Navbar() {
           <img
             src="/logo.png"
             alt="VibeHook Logo"
+            width={36}
+            height={36}
+            fetchPriority="high"
+            decoding="async"
             className="w-9 h-9 rounded-full object-cover shadow-lg shadow-primary/30 ring-2 ring-primary/40"
           />
           <span className="font-display font-bold text-xl tracking-tight text-white">
